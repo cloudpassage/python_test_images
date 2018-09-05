@@ -11,7 +11,8 @@ RUN apt-get update && \
         build-essential \
         openssl \
         python \
-        wget && \
+        wget \
+        zlib1g-dev && \
     wget https://github.com/python/cpython/archive/v${PY_VER}.tar.gz && \
     tar -zxvf ./v${PY_VER}.tar.gz && \
     cd ./cpython-${PY_VER} && \
