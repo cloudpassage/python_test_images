@@ -10,7 +10,7 @@ env:
   - PY_VER=2.7.13
   - PY_VER=2.7.14
   - PY_VER=2.7.15
-  - PY_VER=2.7.17
+#  - PY_VER=2.7.17
   - PY_VER=3.6.5
   - PY_VER=3.6.6
   - PY_VER=3.7.0
