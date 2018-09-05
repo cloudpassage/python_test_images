@@ -14,12 +14,12 @@ RUN apt-get update && \
         wget && \
     wget https://github.com/python/cpython/archive/v${PY_VER}.tar.gz && \
     tar -zxvf ./v${PY_VER}.tar.gz && \
-    cd ./v${PY_VER} && \
+    cd ./cpython-${PY_VER} && \
     ./configure --prefix=/opt/python && \
     make && \
     make install && \
     apt-get remove -y \
-        build-esssential \
+        build-essential \
         git && \
     apt-get autoremove -y && \
     rm -rf /src/*
