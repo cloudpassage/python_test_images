@@ -1,19 +1,26 @@
 sudo: required
 language: python
 services:
-  - docker
+- docker
 env:
   matrix:
-    - PY_VER=2.7.10
-    - PY_VER=2.7.11
-    - PY_VER=2.7.12
-    - PY_VER=2.7.13
-    - PY_VER=2.7.14
-    - PY_VER=2.7.15
-    - PY_VER=2.7.16
-    - PY_VER=2.7.17
-    - PY_VER=3.6.5
-    - PY_VER=3.6.6
-    - PY_VER=3.7.0
+  - PY_VER=2.7.10
+  - PY_VER=2.7.11
+  - PY_VER=2.7.12
+  - PY_VER=2.7.13
+  - PY_VER=2.7.14
+  - PY_VER=2.7.15
+  - PY_VER=2.7.16
+  - PY_VER=2.7.17
+  - PY_VER=3.6.5
+  - PY_VER=3.6.6
+  - PY_VER=3.7.0
+  global:
+  - secure: 8RTkEK8Lu7HA/X4NEaLMTJhgX9tE+ltG+b2CQArsEA+a8Dzhxm/7CKdXgAuI6jAZfrL/o8ty9Gc1UnDimgAk7U7p7tX5tRHdWqAJ5s7u8ksogUaAMhVfN5QMz1Hm7VcvOBYE4aG870KgOASSgdE9B09fvuw2C+N4dFBLRqgrlf2aPiD7F6eX7Gr20LaX+HxpnGLPP489pOFQ+jrsRTR1O95VysdAS8jua+bOafQAXDehYVK/cCbqj6p2l9k7CAdToWHGH1m+ndr81P+tMNZn+SeWDtxVpdqkq0yzrHoXSYZYzbLgzi99FQAVAPr8mMcnw1nr/ZguKBnrIWjc3JwMwpzJRhtESuLtCd0WAQ86N6SYfqvyrQrgNAsO+vTfG1jBMI851kwj1uk/w4xNd22UB8a15bxuSDDTJI/1BuuR79KyUv4d/ytiejTn0ASjETElLN+Pc624UcLdTBHNEvaGe3pVYm/EPcrA+zle8S6vt2EAHf128rmOdB5t4gWoswoPe90yZ9Txym0iAcLyIS9103/nh3Xv4xTFmPvqTlVUBQC/j2ebcvwxQMq7Hqr4RUCkysWlmjSuQFGID2QNSSVaQvpaALgmVQwA8UBUfMhasqm3odUC+nlCmrWjfEDmJhkJ7CnZoHsrXUsCrj/QVKVKmQgTd5v15tLcF4B21Bn9Udg=
+  - secure: 8kvJonAzo5zhD3uF8l3QZHsyFCQJvB/GbSlEkNsWvyGy2Om98gkg/SqavvcqNuJNLQHdBXYmfc92azHmAJyE0fDCpWDM99HDK+AzmpaIcKRFB/lc+DpBAoiCkzeDopWksQbDgqi8+u1sUAJDKyCg0ALXnGPce6nFstpwWLW6IJXEtr2zPqfk15/QHKR77XaSSpu8oanf+HXH+5xrT7Hbf37wvaFD/0p9lV6QmIK9mh+ucogTcGapVqmCQEKI2C4wUjEdlOips6D3pOZehfMcWjE0Gk4YctRamXWjdKsrZOx6qIO8jkLAe7UhMRS4oKkm+O3deIbhgBdAw8EjZSo5pkiPUHRnQxFeFIwTJKNAPbpuggk+7xoTgfFEvOHKEuDTvCbUMfhHNoMx05PUmJIFmkNcFTuBQxzWqrFeME/r2xNybzm2uAUoZ6C17jl9cXxrUbS7HD1WWJgjgcrRZCbyNOsGWTE81yVtVdjttR/eaGueDi+UwFeiICz9LJlfmA8LtNsLrh2ZKZo+ETbCnPZJ8y5ahZkaMrtfteU3HtEBqH8bt5NOGYg82gulCNe/z4I6BaPkqOmfRAzlU4k43PYA1Nq18896qRh7AhHWUEq3D212TCXIEI7Etc+WVYor1L+WKwqS+/2ek4JAuL3olA2qiaFIVqxMJiuJuAsGxeWsBCU=
 script:
-  - docker build -t pyimage:${PY_VER} .
+- export IMAGE_NAME=docker.io/halotools/python_tester:${PY_VER}
+- docker build -t ${IMAGE_NAME} --build-arg PY_VER=${PY_VER} .
+- docker run -it --rm ${IMAGE_NAME} /opt/python/bin/python --version
+- docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWORD}
+- docker push ${IMAGE_NAME}
