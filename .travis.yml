@@ -1,0 +1,16 @@
+sudo: required
+language: python
+services:
+  - docker
+env:
+  matrix:
+    - PY_VER=2.7.10
+    - PY_VER=2.7.11
+    - PY_VER=2.7.12
+    - PY_VER=2.7.13
+    - PY_VER=2.7.14
+    - PY_VER=2.7.15
+    - PY_VER=2.7.16
+    - PY_VER=2.7.17
+script:
+  - docker build -t pyimage:${PY_VER} .
