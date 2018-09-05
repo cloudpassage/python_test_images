@@ -10,7 +10,6 @@ env:
   - PY_VER=2.7.13
   - PY_VER=2.7.14
   - PY_VER=2.7.15
-  - PY_VER=2.7.16
   - PY_VER=2.7.17
   - PY_VER=3.6.5
   - PY_VER=3.6.6
@@ -21,6 +20,4 @@ env:
 script:
 - export IMAGE_NAME=docker.io/halotools/python_tester:${PY_VER}
 - docker build -t ${IMAGE_NAME} --build-arg PY_VER=${PY_VER} .
-- docker run -it --rm ${IMAGE_NAME} /opt/python/bin/python --version
-- docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWORD}
-- docker push ${IMAGE_NAME}
+- docker run -it --rm ${IMAGE_NAME} /opt/python/bin/python --version && docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWORD} && docker push ${IMAGE_NAME}

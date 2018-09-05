@@ -9,11 +9,11 @@ WORKDIR /src/
 RUN apt-get update && \
     apt-get install -y \
         build-essential \
-        git \
         openssl \
         python && \
-    git clone https://github.com/python/cpython && \
-    git checkout v${PY_VER} && \
+    wget https://github.com/python/cpython/archive/v${PY_VER}.tar.gz && \
+    tar -zxvf ./v${PY_VER}.tar.gz && \
+    cd ./v${PY_VER} && \
     ./configure --prefix=/opt/python && \
     make && \
     make install && \
