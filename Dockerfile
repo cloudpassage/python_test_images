@@ -9,7 +9,7 @@ WORKDIR /src/
 RUN apt-get update && \
     apt-get install -y \
         build-essential \
-        openssl \
+        libssl-dev \
         python \
         wget \
         zlib1g-dev && \
@@ -27,5 +27,11 @@ RUN apt-get update && \
 
 
 WORKDIR /opt/python/bin
+
+# Because Py3.
+RUN /opt/python/bin/python || ln -s /opt/python/bin/python3 /opt/python/bin/python
+
+# Check to make sure we can use pip
+RUN /opt/python/bin/python -mpip search numpy
 
 CMD /opt/bin/python/bin/python
