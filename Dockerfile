@@ -10,7 +10,8 @@ RUN apt-get update && \
     apt-get install -y \
         build-essential \
         openssl \
-        python && \
+        python \
+        wget && \
     wget https://github.com/python/cpython/archive/v${PY_VER}.tar.gz && \
     tar -zxvf ./v${PY_VER}.tar.gz && \
     cd ./v${PY_VER} && \
