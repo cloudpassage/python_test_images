@@ -23,6 +23,7 @@ RUN apt-get update && \
     make install && \
     apt-get remove -y \
         build-essential \
+        python \
         git && \
     apt-get autoremove -y && \
     rm -rf /src/*
